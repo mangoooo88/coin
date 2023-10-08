@@ -22,7 +22,9 @@ const router = createBrowserRouter([
         element: <Chart/>,
       },
     ]
-  }
-])
+  },
+], {
+  basename : process.env.PUBLIC_URL
+})
 
 export default router
