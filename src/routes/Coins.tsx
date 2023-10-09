@@ -1,8 +1,11 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { fetchCoins } from "../api";
 import { Helmet } from "react-helmet";
+import React from "react";
+import { useSetRecoilState } from "recoil";
+import { isDarkAtom } from "../atoms";
 
 const Container = styled.div`
   padding: 0 20px;
@@ -22,10 +25,11 @@ const CoinsList = styled.ul`
 `
 
 const Coin = styled.li`
-  background-color: white;
-  color: ${props => props.theme.bgColor};
+  background-color: ${props => props.theme.cardBgColor};
+  color: ${props => props.theme.textColor};
   margin-bottom: 10px;
   border-radius: 15px;
+  border: 1px solid white;
 
   a {
     transition: color .2s ease-in;
@@ -67,6 +71,9 @@ interface ICoin {
   type: string;
 }
 
+interface IRouterProps {
+}
+
 function Coins() {
   /*
   const [coins, setCoins] = useState<ICoin[]>([])
@@ -86,6 +93,8 @@ function Coins() {
     cacheTime: 5 * 60 * 1000,
     staleTime: 1 * 60 * 1000,
   })
+  const setDarkAtom = useSetRecoilState(isDarkAtom)
+  const toggleDarkAtom = () => setDarkAtom(prev => !prev)
 
   return (
     <Container>
@@ -94,6 +103,7 @@ function Coins() {
       </Helmet>
       <Header>
         <Title>코인</Title>
+        <button onClick={toggleDarkAtom}>토글 모드</button>
       </Header>
       {isLoading ?
         <Loader>"로딩중...."</Loader> :

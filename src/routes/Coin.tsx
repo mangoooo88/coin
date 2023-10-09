@@ -1,4 +1,4 @@
-import { Link, Outlet, useLocation, useMatch, useParams } from "react-router-dom";
+import { Link, Outlet, useLocation, useMatch, useOutletContext, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
@@ -133,6 +133,7 @@ interface PriceData {
     };
   };
 }
+
 
 function Coin() {
   const {coinId} = useParams<{ coinId: string }>()
